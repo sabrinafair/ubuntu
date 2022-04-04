@@ -1,7 +1,3 @@
-CC = g++
-
-CFLAGS = -D DEBUG
-
 all: threadHello
 
 threadHello: threadHello.c
