@@ -1,17 +1,20 @@
+//Name: Sabrina Ferras
+//Date: 4-5-2022
+//Lab: Lab 5 - Working with threads
+//Description: This step 3 of the lab demonstrates how to implement threads to work in parrallel to solve a matrix multiplication
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
-#define N 2
-#define M 3
-#define L 2
+#define N 5
+#define M 5
+#define L 5
 
 pthread_t threads[N];
 int currentRow = 0;
 
 int multiply(double matrixA[N][M], double matrixB[M][L], double matrixC[N][L]){
-//int multiply(){
-
+	//int multiply(){
 	if(currentRow == N) return -1;
 
 	double temp = 0;
@@ -58,28 +61,14 @@ struct matrices{
 
 struct matrices *mtx;// = malloc(sizeof(struct matrices));
 
-//void *thread(struct matrices *m){
 void *thread(void *arg){
-//	struct matrices *m = (struct matrices*) arg;
-//	matrices *mtx = malloc(sizeof(matrices));
-//	initMatrices(m->matrixA, m->matrixB);	
-	printf("\nTesting Thread matrix A and B: \n");
-	display(N, M, mtx->matrixA);
-	printf("\n");
-	display(M, L, mtx->matrixB);
-//	display(M , L, b);
-//	display(N , L, c);
+	
 	//"MULTIPLY
 	multiply(mtx->matrixA, mtx->matrixB, mtx->matrixC);
 }
 
 int main(){
-//	double matrixA[N][M];
-//	double matrixB[M][L];
-//	double matrixC[N][M];
-	//struct matrices 
 	mtx = malloc(sizeof(struct matrices));
-//	Matrices *mtx = (Matrices*) matrix;
 	initMatrices(mtx->matrixA, mtx->matrixB);	
 	
 	//"Displaying matrices
@@ -87,17 +76,20 @@ int main(){
 	display(N, M, mtx->matrixA);
 	printf("\nMatrix B: \n");
 	display(M, L, mtx->matrixB);
+	
 	//"Creating threads
-	for(int i = 0; i < N; i++)
-		pthread_create(&threads[i], NULL, thread, (void *)NULL); //&mtx);		
+	for(int i = 0; i < N; i++)	//creating n threads to do n rows of the C matrix
+		pthread_create(&threads[i], NULL, thread, (void *)NULL); 		
 
 	
 	//"wait to print --JOIN
 	for(int i = 0; i < N; i++)
 		pthread_join(threads[i], NULL);
+
 	printf("Matrix C:\n");
 	display(N, L, mtx->matrixC);
-	free(mtx);
+
+	free(mtx);	//frr malloc'd space
 	
 	return 0;
 }

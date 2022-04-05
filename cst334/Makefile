@@ -1,7 +1,7 @@
-all: threadM2
+all: matrixMultiply
 #all: threadHello threadHello_step1 matrix 
-threadM3: threadM2.c
-	gcc -o threadM2 threadM2.c -Wall -pthread
+matrixMultiply: matrixMultiply.c
+	gcc -o matrixMultiply matrixMultiply.c -Wall -pthread
 
 threadHello: threadHello.c
 	gcc -o threadHello threadHello.c -Wall -pthread
