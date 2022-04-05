@@ -21,13 +21,13 @@ void multiply(double matrixA[N][M], double matrixB[M][L], double matrixC[N][L]){
 			temp = 0;
 		}
 	}
-	printf("Matrix C:\n");
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < L; j++){
-		printf("array[%d][%d]=%f\t", i, j, matrixC[i][j]);
-		}
-	printf("\n");
-	}
+//	printf("Matrix C:\n");
+//	for(int i = 0; i < N; i++){
+//		for(int j = 0; j < L; j++){
+//		printf("array[%d][%d]=%f\t", i, j, matrixC[i][j]);
+//		}
+//	printf("\n");
+//	}
 }
 
 void initMatrices(double a[N][M], double b[M][L]){
@@ -58,6 +58,14 @@ void display1(double arr[M][L]){
 	}
 }
 
+void display2(int r ,int c, double arr[r][c]){
+	for(int i = 0; i < r; i++){
+		for(int j = 0; j < c; j++){
+		printf("array[%d][%d]=%f\t", i, j, arr[i][j]);
+		}
+	printf("\n");
+	}
+}
 
 
 int main(){
@@ -70,9 +78,13 @@ int main(){
 	
 	//"Displaying matrices
 	printf("Matrix A:\n");
-	display(matrixA);
+	//display(matrixA);
+	//printf("test display A:\n");
+	display2(N, M, matrixA);
 	printf("\nMatrix B: \n");
-	display1(matrixB);
+	//display1(matrixB);
+	//printf("test display B:\n");
+	display2(M, L, matrixB);
 	
 	multiply(matrixA, matrixB, matrixC);
 	
@@ -93,12 +105,13 @@ int main(){
 //	}
 //	display2(matrixC);
 	printf("Matrix C:\n");
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < L; j++){
-		printf("array[%d][%d]=%f\t", i, j, matrixC[i][j]);
-		}
-	printf("\n");
-	}
+	display2(N, L, matrixC);
+//	for(int i = 0; i < N; i++){
+//		for(int j = 0; j < L; j++){
+//		printf("array[%d][%d]=%f\t", i, j, matrixC[i][j]);
+//		}
+//	printf("\n");
+//	}
 	
 	
 	return 0;

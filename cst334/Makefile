@@ -1,7 +1,7 @@
-all: threadM
+all: threadM2
 #all: threadHello threadHello_step1 matrix 
-threadM: threadM.c
-	gcc -o threadM threadM.c -Wall -pthread
+threadM3: threadM2.c
+	gcc -o threadM2 threadM2.c -Wall -pthread
 
 threadHello: threadHello.c
 	gcc -o threadHello threadHello.c -Wall -pthread
@@ -13,4 +13,4 @@ matrix: matrix.c
 	gcc -o matrix matrix.c -Wall -pthread
 
 clean:
-	rm -f threadHello threadHello_step1 matrix threadM
+	rm -f threadHello threadHello_step1 matrix threadM2
