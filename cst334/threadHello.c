@@ -1,38 +1,29 @@
 //Name: Sabrina Ferras
 //Date: 4-5-2022
 //Title: Lab5 - Working with a Multi-Threaded program
-//Description: 
+//Description: This is the code given in step 1 of lab 5 and we are supposed to complile and run it 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
-void *go();
+void *go(void *);
 #define NTHREADS 10
 pthread_t threads[NTHREADS];
-pthread_mutex_t mutex;	//added for to have a lock for critical sections
-
-int num = 0;
-
 int main(){
-	pthread_mutex_init(&mutex, NULL);	//initialize lock
 	int i;
+	for(i = 0; i < NTHREADS; i++)
+		pthread_create(&threads[i], NULL, go, &i);	
+	
 	for(i = 0; i < NTHREADS; i++){
-		pthread_create(&threads[i], NULL, go, NULL);
-	}
-	for(i = 0; i < NTHREADS; i++){
-		printf("Thread %d returned\n", i);
+		printf("Thread %d returned\n", i);	
 		pthread_join(threads[i], NULL);
 	}
 	printf("Main thread done.\n");
-	pthread_mutex_destroy(&mutex);
 	return 0;
 }
 
-void *go(){
-	pthread_mutex_lock(&mutex);
-	printf("Hello from thread %d with iteration %d\n", (int) pthread_self(), num);
-	num++;
-	pthread_mutex_unlock(&mutex);
+void *go(void *arg){
+	printf("Hello from thread %d with iteration %d\n", (int) pthread_self(), *(int *)arg);
 	return 0;
 }

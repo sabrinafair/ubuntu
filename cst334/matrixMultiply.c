@@ -6,16 +6,13 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#define N 5
-#define M 5
-#define L 5
+#define N 2
+#define M 2
+#define L 2
 
 pthread_t threads[N];
-int currentRow = 0;
 
-int multiply(double matrixA[N][M], double matrixB[M][L], double matrixC[N][L]){
-	//int multiply(){
-	if(currentRow == N) return -1;
+void multiply(double matrixA[N][M], double matrixB[M][L], double matrixC[N][L], int currentRow){
 
 	double temp = 0;
 	for(int i = currentRow; i < currentRow + 1; i++){
@@ -28,8 +25,6 @@ int multiply(double matrixA[N][M], double matrixB[M][L], double matrixC[N][L]){
 		}
 	}
 
-	currentRow++;
-	return 1;
 }
 
 void initMatrices(double a[N][M], double b[M][L]){
@@ -61,10 +56,10 @@ struct matrices{
 
 struct matrices *mtx;// = malloc(sizeof(struct matrices));
 
-void *thread(void *arg){
-	
+void *thread(void* arg){
+	int rn = (int*)arg;
 	//"MULTIPLY
-	multiply(mtx->matrixA, mtx->matrixB, mtx->matrixC);
+	multiply(mtx->matrixA, mtx->matrixB, mtx->matrixC, rn);
 }
 
 int main(){
@@ -79,7 +74,7 @@ int main(){
 	
 	//"Creating threads
 	for(int i = 0; i < N; i++)	//creating n threads to do n rows of the C matrix
-		pthread_create(&threads[i], NULL, thread, (void *)NULL); 		
+		pthread_create(&threads[i], NULL, thread, (void*)i); 		
 
 	
 	//"wait to print --JOIN
