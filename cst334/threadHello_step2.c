@@ -15,7 +15,7 @@ int main(){
 	for(i = 0; i < NTHREADS; i++){
 		int *arg = malloc(sizeof(int));	//allocating for each thread
 		*arg = i;	//seting value of iteration #
-		pthread_create(&threads[i], NULL, go, arg);	//try here (void *) i instreas of &i
+		pthread_create(&threads[i], NULL, go, arg);	//passed arg
 	}
 	for(i = 0; i < NTHREADS; i++){
 		printf("Thread %d returned\n", i);	
