@@ -6,9 +6,9 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#define N 2
-#define M 2
-#define L 2
+#define N 1024
+#define M 1024
+#define L 1024
 
 pthread_t threads[N];
 
@@ -31,12 +31,12 @@ void initMatrices(double a[N][M], double b[M][L]){
 	srand(time(NULL));
 	for(int i = 0; i < N; i++)
 		for(int j = 0; j < M; j++)
-			a[i][j] = (rand() % 10) + 1;
+			a[i][j] = rand();
 
 	srand(time(NULL));
 	for(int i = 0; i < M; i++)
 		for(int j = 0; j < L; j++)
-			b[i][j] = (rand() % 10) + 1;
+			b[i][j] = rand();
 }	
 
 void display(int r ,int c, double arr[r][c]){
@@ -57,9 +57,10 @@ struct matrices{
 struct matrices *mtx;// = malloc(sizeof(struct matrices));
 
 void *thread(void* arg){
-	int rn = (int*)arg;
+	int rn = *(int *)arg;
 	//"MULTIPLY
 	multiply(mtx->matrixA, mtx->matrixB, mtx->matrixC, rn);
+	free(arg);
 }
 
 int main(){
@@ -73,9 +74,11 @@ int main(){
 	display(M, L, mtx->matrixB);
 	
 	//"Creating threads
-	for(int i = 0; i < N; i++)	//creating n threads to do n rows of the C matrix
-		pthread_create(&threads[i], NULL, thread, (void*)i); 		
-
+	for(int i = 0; i < N; i++){	//creating n threads to do n rows of the C matrix
+		int *arg = malloc(sizeof(int));
+		*arg = i;
+		pthread_create(&threads[i], NULL, thread, arg); 		
+	}
 	
 	//"wait to print --JOIN
 	for(int i = 0; i < N; i++)
