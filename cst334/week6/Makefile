@@ -1,13 +1,9 @@
-all: threadHello threadHello_step2 matrixMultiply
+all: threadSync p_c
 
-matrixMultiply: matrixMultiply.c
-	gcc -o matrixMultiply matrixMultiply.c -Wall -pthread
+threadSync: threadSync.c
+	gcc -o threadSync threadSync.c -Wall -pthread
 
-threadHello: threadHello.c
-	gcc -o threadHello threadHello.c -Wall -pthread
-
-threadHello_step2: threadHello_step2.c
-	gcc -o threadHello_step2 threadHello_step2.c -Wall -pthread
-
+p_c: p_c.c
+	gcc -o p_c p_c.c -Wall -pthread
 clean:
-	rm -f threadHello threadHello_step2 matrixMultiply
+	rm -f threadSync p_c
