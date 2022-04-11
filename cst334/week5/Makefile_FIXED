@@ -1,0 +1,13 @@
+all: threadHello threadHello_step2 matrixMultiply
+
+matrixMultiply: matrixMultiply.c
+	gcc -o matrixMultiply matrixMultiply.c -std=c99 -Wall -pthread
+
+threadHello: threadHello.c
+	gcc -o threadHello threadHello.c -Wall -pthread
+
+threadHello_step2: threadHello_step2.c
+	gcc -o threadHello_step2 threadHello_step2.c -Wall -pthread
+
+clean:
+	rm -f threadHello threadHello_step2 matrixMultiply
