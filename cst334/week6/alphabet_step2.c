@@ -43,7 +43,7 @@ void *producer(void *arg){
 	printf("Producer thread producing letter: %c\n", i);
 	sem_post(&mutex);
 	sem_post(&full);
-//	}
+	sleep(1);
 	}while(1);
 	
 }
@@ -59,6 +59,7 @@ void *consumer(void *arg){
 	sem_post(&empty);
 	printf("Consumer thread consuming: %c\n", tmp);
 	loops--;
+	sleep(1);
 	}while(1);
 }
 
